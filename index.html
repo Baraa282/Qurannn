@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نور القرآن | Noor Al-Quran</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Scheherazade+New&display=swap" rel="stylesheet">
+    <meta name="description" content="Noor Al-Quran - A comprehensive platform for reading, listening, and studying the Holy Quran">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="main-header">
+            <div class="logo">
+                <h1>نور القرآن</h1>
+                <p>Noor Al-Quran</p>
+            </div>
+            <div class="header-controls">
+                <button id="theme-toggle" class="control-btn" title="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="settings-btn" class="control-btn" title="Settings">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button id="menu-toggle" class="control-btn mobile-only" title="Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar">
+                <nav class="main-nav">
+                    <ul>
+                        <li class="active"><a href="#quran-reader"><i class="fas fa-book-open"></i> القرآن الكريم</a></li>
+                        <li><a href="#audio-player"><i class="fas fa-headphones"></i> الاستماع</a></li>
+                        <li><a href="#tafsir"><i class="fas fa-book"></i> التفسير</a></li>
+                        <li><a href="#memorization"><i class="fas fa-brain"></i> الحفظ</a></li>
+                        <li><a href="#search"><i class="fas fa-search"></i> البحث</a></li>
+                        <li><a href="#favorites"><i class="fas fa-bookmark"></i> المفضلة</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Surah Selection -->
+                <div class="surah-selection">
+                    <h3>السور</h3>
+                    <div class="search-box">
+                        <input type="text" id="surah-search" placeholder="ابحث عن سورة...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <ul id="surah-list" class="surah-list">
+                        <!-- Surah list will be populated by JavaScript -->
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Quran Reader Section -->
+            <section id="quran-reader" class="content-section active">
+                <div class="reader-header">
+                    <div class="surah-info">
+                        <h2 id="current-surah-name">سورة الفاتحة</h2>
+                        <p id="current-surah-info">مكية - 7 آيات</p>
+                    </div>
+                    <div class="reader-controls">
+                        <button id="prev-page" class="control-btn" title="Previous Page">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <div class="page-info">
+                            <span id="current-page">1</span> / <span id="total-pages">604</span>
+                        </div>
+                        <button id="next-page" class="control-btn" title="Next Page">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="quran-display">
+                    <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+                    <div id="quran-text" class="quran-text">
+                        <!-- Quran text will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="translation-panel" id="translation-panel">
+                    <div class="panel-header">
+                        <h3>الترجمة</h3>
+                        <select id="translation-select">
+                            <option value="en">English</option>
+                            <option value="fr">Français</option>
+                            <option value="ur">اردو</option>
+                            <option value="id">Bahasa Indonesia</option>
+                            <!-- More languages will be added -->
+                        </select>
+                    </div>
+                    <div id="translation-text" class="translation-text">
+                        <!-- Translation will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Audio Player Section -->
+            <section id="audio-player" class="content-section">
+                <div class="audio-header">
+                    <h2>الاستماع إلى القرآن الكريم</h2>
+                    <div class="reciter-selection">
+                        <label for="reciter-select">القارئ:</label>
+                        <select id="reciter-select">
+                            <option value="mishary">مشاري راشد العفاسي</option>
+                            <option value="sudais">عبد الرحمن السديس</option>
+                            <option value="minshawi">محمد صديق المنشاوي</option>
+                            <option value="husary">محمود خليل الحصري</option>
+                            <!-- More reciters will be added -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="audio-controls">
+                    <div class="playback-info">
+                        <span id="current-surah-audio">سورة الفاتحة</span>
+                        <span id="current-verse">آية 1</span>
+                    </div>
+                    <div class="player-controls">
+                        <button id="prev-verse" class="control-btn" title="Previous Verse">
+                            <i class="fas fa-step-backward"></i>
+                        </button>
+                        <button id="play-pause" class="control-btn play-btn" title="Play/Pause">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button id="next-verse" class="control-btn" title="Next Verse">
+                            <i class="fas fa-step-forward"></i>
+                        </button>
+                        <button id="repeat-toggle" class="control-btn" title="Repeat">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                    <div class="playback-settings">
+                        <div class="volume-control">
+                            <i class="fas fa-volume-up"></i>
+                            <input type="range" id="volume-slider" min="0" max="100" value="100">
+                        </div>
+                        <div class="speed-control">
+                            <label for="speed-select">السرعة:</label>
+                            <select id="speed-select">
+                                <option value="0.75">0.75x</option>
+                                <option value="1" selected>1x</option>
+                                <option value="1.25">1.25x</option>
+                                <option value="1.5">1.5x</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="audio-progress">
+                    <span id="current-time">00:00</span>
+                    <div class="progress-bar-container">
+                        <div id="progress-bar" class="progress-bar"></div>
+                    </div>
+                    <span id="total-time">00:00</span>
+                </div>
+
+                <div class="verse-by-verse-container">
+                    <h3>الاستماع آية بآية</h3>
+                    <div id="verse-list" class="verse-list">
+                        <!-- Verse list will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tafsir Section -->
+            <section id="tafsir" class="content-section">
+                <div class="tafsir-header">
+                    <h2>تفسير القرآن الكريم</h2>
+                    <div class="tafsir-selection">
+                        <label for="tafsir-select">التفسير:</label>
+                        <select id="tafsir-select">
+                            <option value="ibn-kathir">تفسير ابن كثير</option>
+                            <option value="saadi">تفسير السعدي</option>
+                            <option value="qurtubi">تفسير القرطبي</option>
+                            <option value="tabari">تفسير الطبري</option>
+                            <!-- More tafsirs will be added -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="tafsir-content">
+                    <div class="verse-selection">
+                        <h3>اختر الآية</h3>
+                        <div id="tafsir-verse-list" class="verse-list">
+                            <!-- Verse list will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    <div class="tafsir-text-container">
+                        <div class="selected-verse">
+                            <h3>الآية المختارة</h3>
+                            <div id="selected-verse-text" class="selected-verse-text"></div>
+                        </div>
+                        <div class="tafsir-text">
+                            <h3>التفسير</h3>
+                            <div id="tafsir-text" class="tafsir-content-text"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Memorization Section -->
+            <section id="memorization" class="content-section">
+                <div class="memorization-header">
+                    <h2>أدوات الحفظ والمراجعة</h2>
+                </div>
+
+                <div class="memorization-tools">
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-repeat"></i>
+                        </div>
+                        <h3>التكرار</h3>
+                        <p>تكرار الآيات لتسهيل الحفظ</p>
+                        <button id="repetition-tool-btn" class="tool-btn">ابدأ</button>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-eye-slash"></i>
+                        </div>
+                        <h3>الاختبار الذاتي</h3>
+                        <p>اختبر حفظك بإخفاء الآيات</p>
+                        <button id="self-test-tool-btn" class="tool-btn">ابدأ</button>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3>خطة الحفظ</h3>
+                        <p>إنشاء خطة حفظ مخصصة</p>
+                        <button id="plan-tool-btn" class="tool-btn">ابدأ</button>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-icon">
+                            <i class="fas fa-bookmark"></i>
+                        </div>
+                        <h3>المفضلة</h3>
+                        <p>حفظ الآيات المفضلة للرجوع إليها</p>
+                        <button id="favorites-tool-btn" class="tool-btn">عرض</button>
+                    </div>
+                </div>
+
+                <div id="memorization-workspace" class="memorization-workspace">
+                    <!-- Memorization tool content will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Search Section -->
+            <section id="search" class="content-section">
+                <div class="search-header">
+                    <h2>البحث في القرآن الكريم</h2>
+                </div>
+
+                <div class="search-tools">
+                    <div class="search-input-container">
+                        <input type="text" id="quran-search-input" placeholder="ابحث عن كلمة أو آية...">
+                        <button id="search-btn" class="search-btn">
+                            <i class="fas fa-search"></i> بحث
+                        </button>
+                    </div>
+
+                    <div class="search-filters">
+                        <div class="filter-group">
+                            <label>نطاق البحث:</label>
+                            <select id="search-scope">
+                                <option value="all">القرآن كاملاً</option>
+                                <option value="current-surah">السورة الحالية</option>
+                                <option value="tafsir">التفسير</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>نوع البحث:</label>
+                            <select id="search-type">
+                                <option value="word">كلمة</option>
+                                <option value="root">جذر الكلمة</option>
+                                <option value="verse">آية</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="search-results" class="search-results">
+                    <h3>نتائج البحث</h3>
+                    <div id="results-count" class="results-count"></div>
+                    <div id="results-list" class="results-list">
+                        <!-- Search results will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Favorites Section -->
+            <section id="favorites" class="content-section">
+                <div class="favorites-header">
+                    <h2>الآيات المفضلة</h2>
+                </div>
+
+                <div class="favorites-controls">
+                    <div class="favorites-filter">
+                        <label for="favorites-sort">ترتيب حسب:</label>
+                        <select id="favorites-sort">
+                            <option value="date-added">تاريخ الإضافة</option>
+                            <option value="surah-order">ترتيب السور</option>
+                        </select>
+                    </div>
+                    <button id="clear-favorites" class="clear-btn">
+                        <i class="fas fa-trash"></i> مسح الكل
+                    </button>
+                </div>
+
+                <div id="favorites-list" class="favorites-list">
+                    <!-- Favorites will be populated by JavaScript -->
+                    <div class="empty-favorites-message">
+                        <i class="fas fa-bookmark"></i>
+                        <p>لم تقم بإضافة آيات إلى المفضلة بعد</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>الإعدادات</h2>
+                    <button id="close-settings" class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="settings-section">
+                        <h3>الم<response clipped><NOTE>To save on context only part of this file has been shown to you. You should retry this tool after you have searched inside the file with `grep -n` in order to find the line numbers of what you are looking for.</NOTE>
